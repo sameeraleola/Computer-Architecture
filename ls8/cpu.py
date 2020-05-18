@@ -1,6 +1,7 @@
 """CPU functionality."""
 
 import sys
+import constants
 
 class CPU:
     """Main CPU class."""
