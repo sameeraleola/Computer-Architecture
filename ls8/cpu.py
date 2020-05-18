@@ -1,6 +1,6 @@
 """
 Day 1: Get print8.ls8 running
- Inventory what is here
+ Inventory what is here - DONE
  Implement the CPU constructor
  Add RAM functions ram_read() and ram_write()
  Implement the core of run()
@@ -11,13 +11,26 @@ Day 1: Get print8.ls8 running
 
 """CPU functionality."""
 import sys
+import constants.py
 
+"""Main CPU class."""
 class CPU:
-    """Main CPU class."""
-
+    """
+    Construct a new CPU:
+    256 buyes of memory
+    8 general purpose registers
+    
+    """
     def __init__(self):
-        """Construct a new CPU."""
-        pass
+        # Memory = 256 bytes
+        self.ram = [0] * 256
+        # General purpose registers
+        self.reg = [0] * 8
+        # Program counter
+        self.pc = 0
+
+
+
 
     def load(self):
         """Load a program into memory."""
