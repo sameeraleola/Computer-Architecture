@@ -1,16 +1,10 @@
 """
-CPU functionality!
-Day 1: Get print8.ls8 running
-x Inventory what is here
-x Implement the CPU constructor
-x Add RAM functions ram_read() and ram_write()
-x Implement the core of run()
-x Implement the HLT instruction handler
-x Add the LDI instruction
-x Add the PRN instruction
+Day 2: Add the ability to load files dynamically, get mult.ls8 running
+ Un-hardcode the machine code
+ Implement the load() function to load an .ls8 file given the filename passed in as an argument
+ Implement a Multiply instruction (run mult.ls8)
 """
 import sys
-import constants
 
 class CPU:
     """Main CPU class."""
@@ -61,30 +55,44 @@ class CPU:
     def load(self):
         """Load a program into memory."""
 
-        address = 0
+        
 
         # For now, we've just hardcoded a program:
-        RG0 = 0b00000000
-        RG1 = 0b00000001
-        RG2 = 0b00000010
-        RG3 = 0b00000011
-        RG4 = 0b00000100
-        RG5 = 0b00000101
-        RG6 = 0b00000110
-        RG7 = 0b00000111
+        # RG0 = 0b00000000
+        # RG1 = 0b00000001
+        # RG2 = 0b00000010
+        # RG3 = 0b00000011
+        # RG4 = 0b00000100
+        # RG5 = 0b00000101
+        # RG6 = 0b00000110
+        # RG7 = 0b00000111
 
-        program = [
-            # From print8.ls8
-            0b10000010, # LDI R0,8
-            RG0,
-            0b00001000,
-            0b01000111, # PRN R0
-            RG0,
-            0b00000001, # HLT
-        ]
+        # program = [
+        #     # From print8.ls8
+        #     0b10000010, # LDI R0,8
+        #     RG0,
+        #     0b00001000,
+        #     0b01000111, # PRN R0
+        #     RG0,
+        #     0b00000001, # HLT
+        # ]
 
-        for instruction in program:
-            self.ram[address] = instruction
+        # for instruction in program:
+        #     self.ram[address] = instruction
+        #     address += 1
+        
+        # Memory load pointer
+        address = 0
+
+        # Open and parsee the program file
+        with open(sys.argv[1]) as program:
+            for instruction in program:
+                line_read = instruction.split("#")[0].strip()
+                if line_read == '':
+                    continue
+            prog_step = int(line_read, 2)
+            #print(v)
+            self.ram[address] = prog_step
             address += 1
 
     """Run the CPU."""
