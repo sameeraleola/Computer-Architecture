@@ -64,14 +64,22 @@ class CPU:
         address = 0
 
         # For now, we've just hardcoded a program:
+        RG0 = 0b00000000
+        RG1 = 0b00000001
+        RG2 = 0b00000010
+        RG3 = 0b00000011
+        RG4 = 0b00000100
+        RG5 = 0b00000101
+        RG6 = 0b00000110
+        RG7 = 0b00000111
 
         program = [
             # From print8.ls8
             0b10000010, # LDI R0,8
-            0b00000000,
+            RG0,
             0b00001000,
             0b01000111, # PRN R0
-            0b00000000,
+            RG0,
             0b00000001, # HLT
         ]
 
@@ -90,7 +98,6 @@ class CPU:
 
             # Execute the opcode in the opcode dict
             # print(self.opcodes[self.ir])
-
             self.opcodes[self.ir](op_a, op_b)
 
 
