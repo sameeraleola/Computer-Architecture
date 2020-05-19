@@ -1,5 +1,14 @@
-"""CPU functionality."""
-
+"""
+CPU functionality.
+Day 1: Get print8.ls8 running
+x Inventory what is here
+x Implement the CPU constructor
+x Add RAM functions ram_read() and ram_write()
+ Implement the core of run()
+x Implement the HLT instruction handler
+x Add the LDI instruction
+x Add the PRN instruction
+"""
 import sys
 import constants
 
@@ -14,8 +23,8 @@ class CPU:
         self.reg = [0] * 8
         # Program counter
         self.pc = 0
-        # # Instruction register
-        # self.ir = 0
+        # Instruction register
+        self.ir = 0
         # Memory address register
         # self.mar = 0
         # # Memory address register
@@ -27,8 +36,19 @@ class CPU:
             0b00000001:self.hlt
         }
 
-    # CPU opcodes
-    def self.ldi
+    ### CPU opcodes ###
+    # hlt: Exit the executing program
+    def hlt(self, mar, mdr):
+        exit(0)
+    # ldi: Load immediate = Load the data in mdr into the register specified in mar
+    def ldi(self, mar, mdr):
+        self.reg[mar] = mdr
+        self.pc += 3
+    # prn: print the value in the register specified in mar
+    def prn(self, mar, mdr):
+        print(self.reg[mar])
+        self.pc += 2
+
 
     # Read the value stored in memory location adr
     def ram_read(self, mar):
@@ -61,13 +81,17 @@ class CPU:
 
     """Run the CPU."""
     def run(self):
-        # Declare and initialize the instruction register
-        ir = 0
-        # Cache the first two values in memory+
-        operand_a = ram[]
-        operand_b = 0
-        # Read the values at pc+1 and pc+2
+        while True:
+            # Initialize the program
+            self.ir = self.ram[self.pc]
+            # Cache the first two values in memory
+            op_a = self.ram[self.pc + 1]
+            op_b = self.ram[self.pc + 2]
 
+            # Execute the opcode in the opcode dict
+            # print(self.opcodes[self.ir])
+
+            self.opcodes[self.ir](op_a, op_b)
 
 
     def alu(self, op, reg_a, reg_b):
