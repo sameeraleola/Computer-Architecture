@@ -6,9 +6,37 @@ import constants
 class CPU:
     """Main CPU class."""
 
+    """Construct a new CPU."""
     def __init__(self):
-        """Construct a new CPU."""
-        pass
+        # RAM
+        self.ram = [0] * 256
+        # CPU registers
+        self.reg = [0] * 8
+        # Program counter
+        self.pc = 0
+        # # Instruction register
+        # self.ir = 0
+        # Memory address register
+        # self.mar = 0
+        # # Memory address register
+        # self.mdr = 0
+        # # Op codes (instructions)
+        self.opcodes = {
+            0b10000010: self.ldi,
+            0b01000111: self.prn,
+            0b00000001:self.hlt
+        }
+
+    # CPU opcodes
+    def self.ldi
+
+    # Read the value stored in memory location adr
+    def ram_read(self, mar):
+        return self.ram[mar]
+
+   # Write the value (mdr) the value stored in memory location adr
+    def ram_write(self, mdr, mar):
+        self.ram[mar] = mdr
 
     def load(self):
         """Load a program into memory."""
@@ -30,6 +58,16 @@ class CPU:
         for instruction in program:
             self.ram[address] = instruction
             address += 1
+
+    """Run the CPU."""
+    def run(self):
+        # Declare and initialize the instruction register
+        ir = 0
+        # Cache the first two values in memory+
+        operand_a = ram[]
+        operand_b = 0
+        # Read the values at pc+1 and pc+2
+
 
 
     def alu(self, op, reg_a, reg_b):
@@ -61,6 +99,6 @@ class CPU:
 
         print()
 
-    def run(self):
-        """Run the CPU."""
-        pass
+    # def run(self):
+    #     """Run the CPU."""
+    #     pass

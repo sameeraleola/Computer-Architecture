@@ -1,9 +1,9 @@
 # LS-8 CPU Constants
-REG0 = 0
-REG1 = 1
-REG2 = 2
-REG3 = 3
-REG4 = 4
-REG5 = 5
-REG6 = 6
-REG7 = 7
+RG0 = 0
+RG1 = 1
+RG2 = 2
+RG3 = 3
+RG4 = 4
+RG5 = 5
+RG6 = 6
+RG7 = 7
