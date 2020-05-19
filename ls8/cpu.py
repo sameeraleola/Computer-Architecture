@@ -87,13 +87,15 @@ class CPU:
         # Open and parsee the program file
         with open(sys.argv[1]) as program:
             for instruction in program:
+                # print(f'instruction read = {instruction}')
                 line_read = instruction.split("#")[0].strip()
                 if line_read == '':
                     continue
-            prog_step = int(line_read, 2)
-            #print(v)
-            self.ram[address] = prog_step
-            address += 1
+                prog_step = int(line_read, 2)
+                # print(prog_step)
+                self.ram[address] = prog_step
+                # print(f'ram[{address}] = {self.ram[address]}')
+                address += 1
 
     """Run the CPU."""
     def run(self):
