@@ -72,7 +72,10 @@ class CPU:
     def ram_write(self, mdr, mar):
         self.ram[mar] = mdr
 
-    # def pcinc(self, opcode):
+    def pcinc(self, opcode):
+        print(f'PC coming in: {self.pc}')
+        print(bin(opcode))
+        
 
 
     def load(self, programfile):
@@ -96,6 +99,7 @@ class CPU:
     """Run the CPU."""
     def run(self):
         while True:
+            print(f'Start PC: {self.pc}')
             # Initialize the program
             self.ir = self.ram[self.pc]
             # Cache the first two values in memory
@@ -106,7 +110,8 @@ class CPU:
             self.opcodes[self.ir](op_a, op_b)
             # set or increment PC
             # Set or PC increment
-            # pcinc(self.ir)
+            self.pcinc(self.ir)
+            print(f'PC at the bottom: {self.pc}')
 
     # Implement the ALU
     def alu(self, op, reg_a, reg_b):
