@@ -1,7 +1,7 @@
 """
 Day 2: Add the ability to load files dynamically, get mult.ls8 running
- Un-hardcode the machine code
- Implement the load() function to load an .ls8 file given the filename passed in as an argument
+ x Un-hardcode the machine code
+ x Implement the load() function to load an .ls8 file given the filename passed in as an argument
  Implement a Multiply instruction (run mult.ls8)
 """
 import sys
@@ -21,27 +21,47 @@ class CPU:
         self.ir = 0
         # Memory address register
         # self.mar = 0
-        # # Memory address register
+        # Memory data register
         # self.mdr = 0
-        # # Op codes (instructions)
+
+        self
         self.opcodes = {
+        # Check the opcode for the following information:
+        # 1. Bits 6-7: Number of operands for the opcode 0, 1, or 2
+        # 2. Bit 5 ALU or CPU
+        # 3. Bit 4 if the operand sets the PC or jumps
+        # 4. Bits 0-2 the opcode identifier
             0b10000010: self.ldi,
             0b01000111: self.prn,
-            0b00000001:self.hlt
+            0b10100010: self.mul, # 4th bit defines set (0) for increment or jump (1)
+            0b00000001: self.hlt
         }
 
+    # def _cora(self, op):
+    #     mask = op &
+
     ### CPU opcodes ###
-    # hlt: Exit the executing program
-    def hlt(self, mar, mdr):
-        exit(0)
-    # ldi: Load immediate = Load the data in mdr into the register specified in mar
+    # LDI: Load immediate = Load the data in mdr into the register specified in mar
     def ldi(self, mar, mdr):
         self.reg[mar] = mdr
         self.pc += 3
-    # prn: print the value in the register specified in mar
+
+    # PRN: print the value in the register specified in mar
     def prn(self, mar, mdr):
         print(self.reg[mar])
         self.pc += 2
+
+    # MUL: Multiple in ALU
+    def mul(self, mar, mdr):
+        self.alu("MUL", mar, mdr)
+    
+    # ADD: Add in ALU
+    def add(self, mar, mdr):
+        self.alu("ADD", mar, mdr)
+
+    # hlt: Exit the executing program
+    def hlt(self, mar, mdr):
+        exit(0)
 
 
     # Read the value stored in memory location adr
@@ -51,6 +71,9 @@ class CPU:
    # Write the value (mdr) the value stored in memory location adr
     def ram_write(self, mdr, mar):
         self.ram[mar] = mdr
+
+    # def pcinc(self, opcode):
+
 
     def load(self, programfile):
         """Load a program into memory."""
@@ -80,18 +103,22 @@ class CPU:
             op_b = self.ram[self.pc + 2]
 
             # Execute the opcode in the opcode dict
-            # print(self.opcodes[self.ir])
             self.opcodes[self.ir](op_a, op_b)
+            # set or increment PC
+            # Set or PC increment
+            # pcinc(self.ir)
 
-
+    # Implement the ALU
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
 
         if op == "ADD":
             self.reg[reg_a] += self.reg[reg_b]
-        #elif op == "SUB": etc
+        elif op == "MUL":
+            self.reg[reg_a] *= self.reg[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
+
 
     def trace(self):
         """
